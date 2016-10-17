@@ -2,18 +2,48 @@ var app = angular.module("myApp",['ui.router', 'angularFileUpload', 'satellizer'
 
 app.config(function($stateProvider, $urlRouterProvider, $authProvider){
 
-	$stateProvider.state("portal", {
-		url:"/portal",
-		abstract: true,
-		templateUrl: "portal.html",
-		controller: "controlPortal"
+	$stateProvider
+	.state("inicio", {
+		url:"/inicio",
+		templateUrl: "templates/inicio.html",
+		controller: "controlInicio"
 	})
-	.state("portal.inicio", {
+	.state("pizzeria", {
+		url:"/pizzeria",
+		abstract: true,
+		templateUrl: "templates/pizzeriaAbstracta.html",
+		controller: "controlPizzeria"
+	})
+	.state("pizzeria.inicio", {
 		url: "/inicio",
 		views:{
 			'contenido':{
-				templateUrl:"inicio.html",
-				controller:"controlInicio"
+				templateUrl:"templates/PizzeriaInicio.html",
+				controller:"controlPizzeriaInicio"
+			}
+		}
+	})
+	.state("pizzeria.login", {
+		url: "/login",
+		views:{
+			'contenido':{
+				templateUrl:"templates/PizzeriaLogin.html",
+				controller:"controlPizzeriaLogin"
+			}
+		}
+	})
+	.state("inmobiliaria", {
+		url:"/inmobiliaria",
+		abstract: true,
+		templateUrl: "templates/inmobiliariaAbstracta.html",
+		controller: "controlInmobiliaria"
+	})
+	.state("inmobiliaria.inicio", {
+		url: "/inicio",
+		views:{
+			'contenido':{
+				templateUrl:"templates/InmobiliariaInicio.html",
+				controller:"controlInmobiliariaInicio"
 			}
 		}
 	});

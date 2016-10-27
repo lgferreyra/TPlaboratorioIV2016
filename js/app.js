@@ -32,6 +32,15 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider){
 			}
 		}
 	})
+	.state("pizzeria.registro", {
+		url: "/registro",
+		views:{
+			'contenido':{
+				templateUrl:"templates/PizzeriaRegistro.html",
+				controller:"controlPizzeriaRegistro"
+			}
+		}
+	})
 	.state("inmobiliaria", {
 		url:"/inmobiliaria",
 		abstract: true,

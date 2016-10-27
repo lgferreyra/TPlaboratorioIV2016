@@ -19,6 +19,9 @@ app.controller("controlPizzeriaLogin", function($scope){
 	
 });
 
+app.controller("controlPizzeriaRegistro", function($scope){
+	
+});
 
 //INMOBILIARIA
 app.controller("controlInmobiliaria", function($scope){

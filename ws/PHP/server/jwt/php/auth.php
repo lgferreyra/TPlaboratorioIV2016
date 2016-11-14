@@ -6,9 +6,13 @@ use \Firebase\JWT\JWT;
 $DatosPorPost = file_get_contents("php://input");
 $respuesta = json_decode($DatosPorPost);
 
-if (Usuario::ValidarUsuario($respuesta->usuario, $respuesta->clave)) {
-    $token["exp"] = time() + 15;
+$result = Usuario::LoginUsuario($respuesta->username, $respuesta->password);
+
+if ($result != null) {
+    $token["exp"] = time() + 3600;
     $token["message"] = "userRegister";
+    $token["perfil"] = $result->perfil;
+
     $key = "123456";
 
     /**

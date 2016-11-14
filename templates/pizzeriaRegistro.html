@@ -1,6 +1,6 @@
 <div class="section valign-wrapper">
 	<div class="container">
-		<form class="col s12 m6">
+		<form class="col s12 m6" name="FormIngreso"  enctype="multipart/form-data" novalidate>
 			<div class="title"><h3>Registro</h3></div>
 			<br>
 			<div class="divider"></div>
@@ -8,11 +8,9 @@
 		  		<h5>Datos Personales</h5>
 		  		<div class="row">
 				    <div class="input-field col s12 m6">
-				      	<input id="apellido" ng-model="usuario.apellido" type="text" class="validate"/>
+				      	<input id="apellido" ng-model="usuario.apellido" value="" type="text" class="validate"/>
 				      	<label for="apellido">Apellido</label>
 				    </div>
-			  	</div>
-			  	<div class="row">
 				    <div class="input-field col s12 m6">
 				      	<input id="nombre" ng-model="usuario.nombre" type="text" class="validate"/>
 				      	<label for="nombre">Nombre</label>
@@ -20,8 +18,33 @@
 			  	</div>
 			  	<div class="row">
 				    <div class="input-field col s12 m6">
+				      	<input id="username" ng-model="usuario.username" type="text" class="validate"/>
+				      	<label for="username">Nombre de usuario</label>
+				    </div>
+				    <div class="input-field col s12 m6">
+				      	<input id="password" ng-model="usuario.password" type="password" class="validate"/>
+				      	<label for="password">Contraseña</label>
+				    </div>
+			  	</div>
+			  	<div class="row" ng-if="true">
+			  		<div class="input-field col s12 m6">
+    					<select ng-model="usuario.perfil" class="validate">
+      						<option value="" disabled selected>Selecione una opción</option>
+      						<option value="cliente">Cliente</option>
+      						<option value="empleado" ng-if="true">Empleado</option>
+      						<option value="encargado" ng-if="true">Encargado</option>
+    					</select>
+    					<label>Perfil</label>
+  					</div>
+			  	</div>
+			  	<div class="row">
+				    <div class="input-field col s12 m6">
 				      	<input id="nrodoc" ng-model="usuario.nrodoc" type="text" class="validate"/>
 				      	<label for="nrodoc">Número de documento</label>
+				    </div>
+				    <div class="input-field col s12 m6" ng-if="usuario.perfil == 'empleado' || usuario.perfil == 'encargado'">
+				      	<input id="cuil" ng-model="usuario.cuil" type="text" class="validate"/>
+				      	<label for="cuil">CUIL</label>
 				    </div>
 			  	</div>
 			  	<div class="row">
@@ -37,9 +60,35 @@
 				      	<label for="email">Correo electrónico</label>
 				    </div>
 			  	</div>
+			  	<div class="section" ng-if="usuario.perfil == 'cliente'">
+			  		<div class="row">
+			  			<div class="input-field col s12 m6">
+					      	<input id="partido" ng-model="usuario.partido" type="text" class="validate"/>
+					      	<label for="partido">Partido</label>
+					    </div>
+					    <div class="input-field col s12 m6">
+					      	<input id="localidad" ng-model="usuario.localidad" type="text" class="validate"/>
+					      	<label for="localidad">Localidad</label>
+					    </div>	
+			  		</div>
+			  		<div class="row">
+			  			<div class="input-field col s12 m8">
+					      	<input id="direccion" ng-model="usuario.direccion" type="text" class="validate"/>
+					      	<label for="direccion">Dirección</label>
+					    </div>
+					    <div class="input-field col s6 m2">
+					      	<input id="numero" ng-model="usuario.numero" type="text" class="validate"/>
+					      	<label for="numero">Número</label>
+					    </div>
+					    <div class="input-field col s6 m2">
+					      	<input id="departamento" ng-model="usuario.departamento" type="text" class="validate"/>
+					      	<label for="departamento">Departamento</label>
+					    </div>	
+			  		</div>
+			  	</div>
 		  	</div>
-		  	<div class="divider"></div>	
-		  	<button class="btn waves-effect waves-light" type="submit" name="action">Ingresar
+
+		  	<button class="btn waves-effect waves-light" type="submit" name="action" ng-click="guardar()">Ingresar
 				<i class="material-icons right">input</i>
 			</button>
 		</form>

@@ -6,7 +6,7 @@
  * If you are not using Composer, you need to load Slim Framework with your own
  * PSR-4 autoloader.
  */
-require 'PHP/clases/Personas.php';
+//require 'PHP/clases/Personas.php';
 require 'PHP/clases/Usuario.php';
 require 'vendor/autoload.php';
 
@@ -36,7 +36,7 @@ $app = new Slim\App();
 *
 *  GET: Para consultar y leer recursos */
 
-$app->get('/', function ($request, $response, $args) {
+/*$app->get('/', function ($request, $response, $args) {
     $response->write("Welcome to Slim!");
     return $response;
 });
@@ -52,14 +52,14 @@ $app->get('/usuario[/{id}[/{name}]]', function ($request, $response, $args) {
     var_dump($args);
     return $response;
 });
-/* POST: Para crear recursos */
+
 $app->post('/usuario/{id}', function ($request, $response, $args) {
     $response->write("Welcome to Slim!");
     var_dump($args);
     return $response;
 });
 
-// /* PUT: Para editar recursos */
+
 $app->put('/usuario/{id}', function ($request, $response, $args) {
     $response->write("Welcome to Slim!");
     var_dump($args);
@@ -68,38 +68,39 @@ $app->put('/usuario/{id}', function ($request, $response, $args) {
     return $response;
 });
 
-// /* DELETE: Para eliminar recursos */
+
 $app->delete('/usuario/{id}', function ($request, $response, $args) {
     $response->write("borrar !", $args->id);
     var_dump($args);
     return $response;
-});
+});*/
 
 
 
-//*PERSONAS*
+//*USUARIOS*
 
 // GET: traer todas las personas
-$app->get('/personas[/]', function ($request, $response, $args) {
+/*$app->get('/personas[/]', function ($request, $response, $args) {
     $respuesta= array();
     $respuesta['listado']=Persona::TraerTodasLasPersonas();
     $arrayJson = json_encode($respuesta);
     $response->write($arrayJson);
     return $response;
-});
+});*/
 
-// GET: traer una persona
-$app->get('/persona[/{id}[/{name}]]', function ($request, $response, $args) {
-    $respuesta = Persona::TraerUnaPersona($args['id']);
-    $peronaJson = json_encode($respuesta);
-    $response->write($peronaJson);
+// GET: trae un usuario
+
+$app->get('/usuario[/{username}[/{password}]]', function ($request, $response, $args) {
+    $respuesta = Usuario::LoginUsuario($args['username'], $args['password']);
+    $usuarioJson = json_encode($respuesta);
+    $response->write($usuarioJson);
     return $response;
 });
 
-//POST: crear una persona
-$app->post('/persona/{persona}', function ($request, $response, $args) {
-    $persona = json_decode($args['persona']);
-    $respuesta = Persona::InsertarPersona($persona);
+/*//POST: crear un usuario
+$app->post('/usuario/{usuario}', function ($request, $response, $args) {
+    $usuario = json_decode($args['usuario']);
+    $respuesta = Usuario::InsertarUsuario($usuario);
     $response->write($respuesta);
     return $response;
 });
@@ -113,12 +114,12 @@ $app->put('/persona/{persona}', function ($request, $response, $args) {
     return $response;
 });
 
-// /* DELETE: Para eliminar recursos */
+// DELETE: Para eliminar recursos
 $app->delete('/persona/{id}', function ($request, $response, $args) {
     $respuesta = Persona::BorrarPersona($args['id']);
     $response->write($respuesta);
     return $response;
-});
+});*/
 
 /**
  * Step 4: Run the Slim application

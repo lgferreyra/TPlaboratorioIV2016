@@ -1,8 +1,4 @@
 //PIZZERIA
-app.controller("controlInicio", function($scope, $state){
-
-});
-
 app.controller("controlPizzeria", function($scope){
 
 	function showBack(){
@@ -19,15 +15,17 @@ app.controller("controlPizzeriaLogin", function($scope){
 	
 });
 
-app.controller("controlPizzeriaRegistro", function($scope){
-	
-});
+app.controller("controlPizzeriaRegistro", function($scope, $http){
+	$scope.usuario={};
 
-//INMOBILIARIA
-app.controller("controlInmobiliaria", function($scope){
-	
-});
+	console.info($scope.usuario);
 
-app.controller("controlInmobiliariaInicio", function($scope){
-	
+
+	$scope.guardar = function(){
+		console.info($scope.usuario);
+	}
+
+	$(document).ready(function() {
+    $('select').material_select();
+  });
 });

@@ -2,13 +2,14 @@
   <div class="nav-wrapper container"><a id="logo-container" ui-sref="pizzeria.inicio" class="brand-logo">Pizzeria Argenta SRL</a>
     <ul class="right hide-on-med-and-down">
       <li><a ui-sref="pizzeria.login()"><i class="material-icons left">input</i>Ingresar</a></li>
-      <li><a ui-sref="pizzeria.registro()"><i class="material-icons left">person_pin</i>Registrarse</a></li>
-      <li><a href="#">Portal</a></li>
+      <li><a ui-sref="pizzeria.registro()"><i class="material-icons left">person_pin</i>Registro</a></li>
+      <li ng-if="true"><a ui-sref="pizzeria.usuario()"><i class="material-icons left">recent_actors</i>Usuarios</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
       <li><a href="#">Ingresar</a></li>
-      <li><a href="#">Registrarse</a></li>
+      <li><a href="#">Registro</a></li>
+      <li><a ng-if="true">Usuarios</a></li>
     </ul>
     <a data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>

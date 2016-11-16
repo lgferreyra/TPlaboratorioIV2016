@@ -14,6 +14,7 @@ class Usuario {
     public $direccion;
     public $numero;
     public $departamento;
+    public $foto;
 
 	public function getUser(){
 		return $this->username;
@@ -119,6 +120,14 @@ class Usuario {
 		$this->departamento = $departamento;
 	}
 
+	public function getFoto(){
+		return $this->foto;
+	}
+
+	public function setFoto($foto){
+		$this->foto = $foto;
+	}
+
 	public function __construct(){
 
 	}
@@ -134,10 +143,19 @@ class Usuario {
 		$usuarioBuscado = $consulta->fetchObject('usuario');
 		return $usuarioBuscado;
 	}
+
+	public static function TraerUsuario($id){
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios where id =:id");
+		$consulta->bindValue(':id', $id, PDO::PARAM_INT);
+		$consulta->execute();
+		$usuarioBuscado = $consulta->fetchObject('usuario');
+		return $usuarioBuscado;
+	}
     
     public static function InsertarUsuario($usuario) {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO usuarios (username, password, nombre, apellido, email, perfil, cuil, fecha, partido, localidad, direccion, numero, departamento) VALUES (:username,:password,:nombre,:apellido,:email,:perfil,:cuil,:fecha,:partido,:localidad,:direccion,:numero,:departamento)");
+        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO usuarios (username, password, nombre, apellido, email, perfil, cuil, fecha, partido, localidad, direccion, numero, departamento, foto) VALUES (:username,:password,:nombre,:apellido,:email,:perfil,:cuil,:fecha,:partido,:localidad,:direccion,:numero,:departamento,:foto)");
         $consulta->bindValue(':username', $usuario->username, PDO::PARAM_STR);
         $consulta->bindValue(':password', $usuario->password, PDO::PARAM_STR);
         $consulta->bindValue(':nombre', $usuario->nombre, PDO::PARAM_STR);
@@ -151,11 +169,12 @@ class Usuario {
         $consulta->bindValue(':direccion', $usuario->direccion, PDO::PARAM_STR);
         $consulta->bindValue(':numero', $usuario->numero, PDO::PARAM_STR);
         $consulta->bindValue(':departamento', $usuario->departamento, PDO::PARAM_STR);
+        $consulta->bindValue(':foto', $usuario->foto, PDO::PARAM_STR);
         $consulta->execute();
         return $objetoAccesoDato->RetornarUltimoIdInsertado();
     }
 
-    public static function TrearTodosUsuarios($perfil = null){
+    public static function TraerTodosLosUsuarios($perfil = null){
     	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
     	if($perfil!=null){
     		$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios where perfil = :perfil");

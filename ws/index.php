@@ -90,10 +90,36 @@ $app->delete('/usuario/{id}', function ($request, $response, $args) {
 
 // GET: trae un usuario
 
-$app->get('/usuario[/{username}[/{password}]]', function ($request, $response, $args) {
+$app->get('/loginUsuario[/{username}[/{password}]]', function ($request, $response, $args) {
     $respuesta = Usuario::LoginUsuario($args['username'], $args['password']);
     $usuarioJson = json_encode($respuesta);
     $response->write($usuarioJson);
+    return $response;
+});
+
+$app->get('/usuario[/{id}]', function ($request, $response, $args) {
+    $respuesta = Usuario::TraerUsuario($args['id']);
+    $usuarioJson = json_encode($respuesta);
+    $response->write($usuarioJson);
+    return $response;
+});
+
+$app->get('/usuarios[/{perfil}]', function ($request, $response, $args) {
+    if(isset($args['perfil'])){
+        $respuesta = Usuario::TraerTodosLosUsuarios($args['perfil']);
+    } else {
+        $respuesta = Usuario::TraerTodosLosUsuarios();
+    }
+    $usuariosJson = json_encode($respuesta);
+    $response->write($usuariosJson);
+    return $response;
+});
+
+//POST: crear un usuario
+$app->post('/usuario/crear/{usuario}', function ($request, $response, $args) {
+    $usuario = json_decode($args['usuario']);
+    $respuesta = Usuario::InsertarUsuario($usuario);
+    $response->write($respuesta);
     return $response;
 });
 

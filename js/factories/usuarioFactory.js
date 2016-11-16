@@ -1,27 +1,22 @@
 angular
   .module('myApp')
-  	.factory('usuarioFactory', function (bandera) {
+  	.factory('usuarioFactory', function (usuarioService) {
   		var objeto = {};
-  		objeto.nombreDelFactory = "factory de banderas";
-  		objeto.traerTodo = traerTodo;
-  		objeto.traerNombres = traerNombres;
-  		objeto.traerBanderas = traerBanderas;
-  		objeto.traerPais = traerPais;
+  		objeto.nombreDelFactory = "factory usuarios";
+  		objeto.traerTodos = traerTodos;
+  		objeto.traerPorPerfil = traerPorPerfil;
+  		objeto.traerPorId = traerPorId;
   		return objeto;
 
-  		function traerTodo () {
-	      return bandera.traerTodo();
+  		function traerTodos() {
+	      return usuarioService.traerTodos();
 	    }
 
-	    function traerNombres() {
-	      return bandera.traerNombres();
+	    function traerPorPerfil(perfil) {
+	      return usuarioService.traerPorPerfil(perfil);
 	    }
 
-	    function traerBanderas() {
-	      return bandera.traerBanderas();
-	    }
-
-	    function traerPais(pais) {
-	      return bandera.traerPais(pais);
+	    function traerPorId(id) {
+	      return usuarioService.traerPorId(id);
 	    }
   });

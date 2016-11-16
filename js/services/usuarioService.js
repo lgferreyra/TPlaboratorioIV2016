@@ -4,7 +4,9 @@ angular
 /*    function extraerData (data){
       return data.data;
     }*/
-    var url = "http://www.egos27.somee.com/api/bandera";
+    var url = window.location.protocol + "//" + window.location.host + window.location.pathname + "ws/";
+    //var url = "http://localhost/TPlaboratorioIV2016/ws/usuario/admin/facil";
+    //var url = "http://www.egos27.somee.com/api/bandera";
 
     function traerUrl(param){
         if(param==null){
@@ -13,11 +15,12 @@ angular
         return url + "/" + param;
       }
 
-    this.traerTodo = function () {
-      return $http.get(traerUrl())
+    this.traerTodos = function () {
+      return $http.get(traerUrl() + "usuarios")
       .then( function (data){
 
-        return data.data.Paises;
+        console.log(data);
+        //return data.data.Paises;
 
       },function (error){
         
@@ -26,8 +29,8 @@ angular
       });
     }
 
-    this.traerNombres = function () {
-      return $http.get(traerUrl())
+    this.traerPorPerfil = function (perfil) {
+      return $http.get(traerUrl() + "usuarios/" + perfil)
       .then( function (data){
 
         var soloPaises = data.data.Paises.map(function(pais){
@@ -43,8 +46,8 @@ angular
       });
     }
 
-    this.traerBanderas = function () {
-      return $http.get(traerUrl())
+    this.traerPorId = function (id) {
+      return $http.get(traerUrl() + "usuario/" + id)
       .then( function (data){
 
         var soloBanderas = data.data.Paises.map(function(pais){
@@ -60,8 +63,8 @@ angular
       });
     }
 
-    this.traerPais = function(pais) {
-      return $http.get(traerUrl(pais))
+    this.crear = function(usuario) {
+      return $http.post(traerUrl(pais) + "usuario/crear/" + JSON.stringify(usuario))
       .then( function (data){
 
         return data.data;

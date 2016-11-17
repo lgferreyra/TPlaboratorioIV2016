@@ -115,10 +115,9 @@ $app->get('/usuarios[/{perfil}]', function ($request, $response, $args) {
     return $response;
 });
 
-//POST: crear un usuario
-$app->post('/usuario/crear/{usuario}', function ($request, $response, $args) {
-    $usuario = json_decode($args['usuario']);
-    $respuesta = Usuario::InsertarUsuario($usuario);
+$app->post('/usuario/{user}', function ($request, $response, $args) {
+    $user = json_decode($args['user']);
+    $respuesta = Usuario::InsertarUsuario($user);
     $response->write($respuesta);
     return $response;
 });

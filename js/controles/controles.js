@@ -21,10 +21,8 @@ app.controller("controlPizzeriaLogin", function($scope){
 	
 });
 
-app.controller("controlPizzeriaRegistro", function($scope, $http, FileUploader){
+app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuarioService){
 	$scope.usuario={};
-
-	console.info($scope.usuario);
 
 	$scope.uploader = new FileUploader({url: 'ws/PHP/upload.php'});
 	$scope.uploader.queueLimit = 1; // indico cuantos archivos permito cargar
@@ -38,6 +36,8 @@ app.controller("controlPizzeriaRegistro", function($scope, $http, FileUploader){
 	      }
 	});
 
+	
+
 	$scope.quitar = function(){
 		$scope.uploader.clearQueue();
 		$scope.file=null;
@@ -45,8 +45,32 @@ app.controller("controlPizzeriaRegistro", function($scope, $http, FileUploader){
 	}
 
 	$scope.guardar = function(){
-		console.info($scope.usuario);
-	}
+
+		if($scope.uploader.queue.length>0){
+			var str = $scope.uploader.queue[0].file.name.split(".");
+			var extension = str[str.length - 1];
+			$scope.uploader.queue[0].file.name = $scope.usuario.nrodoc + $scope.usuario.username +  "." + extension;
+
+			$scope.uploader.uploadAll();
+
+			$scope.uploader.onErrorItem = function(fileItem, response, status, headers) {
+	        	console.error('onErrorItem', fileItem, response, status, headers);
+	        	alert('Hubo un problema al intertar subir la foto');
+			}
+
+	        $scope.uploader.onSuccessItem = function(item, response, status, headers) {
+	        	console.info(response);
+	        	$scope.usuario.foto = $scope.uploader.queue[0].file.name;
+	        }
+		}
+		console.log($scope.usuario);
+		usuarioService.crear($scope.usuario).then(function(respuesta){
+			console.log(respuesta);
+		}, function(error){
+			console.error(error);
+		});
+		//usuarioService.traerPorId(1); 	
+	};
 
 	$(document).ready(function() {
     	$('select').material_select();

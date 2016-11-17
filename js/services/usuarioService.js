@@ -12,11 +12,12 @@ angular
         if(param==null){
           return url;
         }
-        return url + "/" + param;
+        console.log(url + param);
+        return url + param;
       }
 
     this.traerTodos = function () {
-      return $http.get(traerUrl() + "usuarios")
+      return $http.get(traerUrl("usuarios"))
       .then( function (data){
 
         console.log(data);
@@ -30,14 +31,11 @@ angular
     }
 
     this.traerPorPerfil = function (perfil) {
-      return $http.get(traerUrl() + "usuarios/" + perfil)
+      return $http.get(traerUrl("usuarios/" + perfil))
       .then( function (data){
 
-        var soloPaises = data.data.Paises.map(function(pais){
-          return {Nombre:pais.Nombre};
-        });
-
-        return soloPaises;
+        console.log(data);
+        //return data;
       
       },function (error){
         
@@ -47,14 +45,14 @@ angular
     }
 
     this.traerPorId = function (id) {
-      return $http.get(traerUrl() + "usuario/" + id)
+      return $http.get(traerUrl("usuario/" + id))
       .then( function (data){
 
-        var soloBanderas = data.data.Paises.map(function(pais){
-          return {BanderaChica:pais.BanderaChica};
-        });
-
-        return soloBanderas;
+        //var soloBanderas = data.data.Paises.map(function(pais){
+        //  return {BanderaChica:pais.BanderaChica};
+        //});
+        console.log(data);
+        //return data;
       
       },function (error){
         
@@ -64,10 +62,11 @@ angular
     }
 
     this.crear = function(usuario) {
-      return $http.post(traerUrl(pais) + "usuario/crear/" + JSON.stringify(usuario))
+      var myurl = traerUrl();
+      return $http.post(traerUrl(myurl + JSON.stringify(usuario)))
       .then( function (data){
 
-        return data.data;
+        return data;
       
       },function (error){
         

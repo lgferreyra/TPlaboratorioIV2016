@@ -63,7 +63,7 @@ angular
 
     this.crear = function(usuario) {
       var myurl = traerUrl();
-      return $http.post(traerUrl(myurl + JSON.stringify(usuario)))
+      return $http.post(traerUrl("usuario/crear"), usuario)
       .then( function (data){
 
         return data;

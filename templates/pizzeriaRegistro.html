@@ -129,9 +129,26 @@
 			  	</div>
 		  	</div>
 
-		  	<button class="btn waves-effect waves-light green" type="submit" name="action" ng-click="guardar()" >Registrarse
+		  	<button class="btn waves-effect waves-light green" type="submit" name="action" ng-click="guardar()" ng-disabled="FormRegistro.$invalid">Registrarse
 				<i class="material-icons right">input</i>
 			</button>
+
+			<button class="btn waves-effect waves-light green" type="submit" name="action" ng-click="probar()" >probar
+				<i class="material-icons right">input</i>
+			</button>
+
+			<div id="popup" class="modal">
+				<div class="modal-content">
+					<h4>Usuario registrado exitosamente!</h4>
+					<p>Para loguearse al sistema, ingrese con sus datos:</p>
+					<p>Nombre de usuario: {{usuario.username}}</p>
+					<p>Contraseña: {{usuario.password}}</p>
+				</div>
+				<div class="modal-footer">
+					<a ui-sref="pizzeria.inicio()" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+				</div>
+			</div>
+
 		</form>
 	</div>
 </div>

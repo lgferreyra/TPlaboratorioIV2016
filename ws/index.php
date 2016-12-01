@@ -18,7 +18,15 @@ require 'vendor/autoload.php';
  * your Slim application now by passing an associative array
  * of setting names and values into the application constructor.
  */
-$app = new Slim\App();
+
+$configuration = [
+    'settings' => [
+        'displayErrorDetails' => true,
+    ],
+];
+$c = new \Slim\Container($configuration);
+$app = new \Slim\App($c);
+//$app = new Slim\App();
 
 /**
  * Step 3: Define the Slim application routes
@@ -115,10 +123,13 @@ $app->get('/usuarios[/{perfil}]', function ($request, $response, $args) {
     return $response;
 });
 
-$app->post('/usuario/{user}', function ($request, $response, $args) {
-    $user = json_decode($args['user']);
-    $respuesta = Usuario::InsertarUsuario($user);
-    $response->write($respuesta);
+$app->post('/usuario/crear', function ($request, $response, $args) {
+    $parsedBody = $request->getParsedBody();
+    $idInserted = Usuario::InsertarUsuario($parsedBody);
+    //ob_start();
+    //var_dump($parsedBody);
+    //$result = ob_get_clean();
+    $response->write($idInserted);
     return $response;
 });
 

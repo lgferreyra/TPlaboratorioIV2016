@@ -5,6 +5,7 @@ class Usuario {
 	public $password;
 	public $perfil;
     public $email;
+    public $nrodoc;
     public $nombre;
     public $apellido;
     public $cuil;
@@ -128,6 +129,14 @@ class Usuario {
 		$this->foto = $foto;
 	}
 
+	public function getNrodoc(){
+		return $this->nrodoc;
+	}
+
+	public function setNrodoc($nrodoc){
+		$this->nrodoc = $nrodoc;
+	}
+
 	public function __construct(){
 
 	}
@@ -155,21 +164,43 @@ class Usuario {
     
     public static function InsertarUsuario($usuario) {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO usuarios (username, password, nombre, apellido, email, perfil, cuil, fecha, partido, localidad, direccion, numero, departamento, foto) VALUES (:username,:password,:nombre,:apellido,:email,:perfil,:cuil,:fecha,:partido,:localidad,:direccion,:numero,:departamento,:foto)");
-        $consulta->bindValue(':username', $usuario->username, PDO::PARAM_STR);
-        $consulta->bindValue(':password', $usuario->password, PDO::PARAM_STR);
-        $consulta->bindValue(':nombre', $usuario->nombre, PDO::PARAM_STR);
-        $consulta->bindValue(':apellido', $usuario->apellido, PDO::PARAM_STR);
-        $consulta->bindValue(':email', $usuario->email, PDO::PARAM_STR);
-        $consulta->bindValue(':perfil', $usuario->perfil, PDO::PARAM_STR);
-        $consulta->bindValue(':cuil', $usuario->cuil, PDO::PARAM_STR);
-        $consulta->bindValue(':fecha', $usuario->fecha, PDO::PARAM_STR);
-        $consulta->bindValue(':partido', $usuario->partido, PDO::PARAM_STR);
-        $consulta->bindValue(':localidad', $usuario->localidad, PDO::PARAM_STR);
-        $consulta->bindValue(':direccion', $usuario->direccion, PDO::PARAM_STR);
-        $consulta->bindValue(':numero', $usuario->numero, PDO::PARAM_STR);
-        $consulta->bindValue(':departamento', $usuario->departamento, PDO::PARAM_STR);
-        $consulta->bindValue(':foto', $usuario->foto, PDO::PARAM_STR);
+
+        if($usuario['perfil']!=null && $usuario['perfil']=='cliente'){
+
+        	$consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO usuarios (username, password, nombre, apellido, email, perfil, nrodoc, fecha, partido, localidad, direccion, numero, departamento, foto) VALUES (:username,:password,:nombre,:apellido,:email,:perfil,:nrodoc,:fecha,:partido,:localidad,:direccion,:numero,:departamento,:foto)");
+
+        } else if($usuario['perfil']!=null && $usuario['perfil']=='empleado' || $usuario['perfil']=='encargado'){
+
+        	$consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO usuarios (username, password, nombre, apellido, email, perfil, nrodoc, cuil, fecha, foto) VALUES (:username,:password,:nombre,:apellido,:email,:perfil,:nrodoc,:cuil,:fecha,:foto)");
+        }
+
+        $consulta->bindValue(':username', $usuario['username'], PDO::PARAM_STR);
+        $consulta->bindValue(':password', $usuario['password'], PDO::PARAM_STR);
+        $consulta->bindValue(':nombre', $usuario['nombre'], PDO::PARAM_STR);
+        $consulta->bindValue(':apellido', $usuario['apellido'], PDO::PARAM_STR);
+        $consulta->bindValue(':email', $usuario['email'], PDO::PARAM_STR);
+        $consulta->bindValue(':perfil', $usuario['perfil'], PDO::PARAM_STR);
+        $consulta->bindValue(':nrodoc', $usuario['nrodoc'], PDO::PARAM_STR);
+        if(array_key_exists('cuil', $usuario)){
+        	$consulta->bindValue(':cuil', $usuario['cuil'], PDO::PARAM_STR);
+        }
+        $consulta->bindValue(':fecha', $usuario['fecha'], PDO::PARAM_STR);
+        if(array_key_exists('partido', $usuario)){
+        	$consulta->bindValue(':partido', $usuario['partido'], PDO::PARAM_STR);
+        }
+        if(array_key_exists('localidad', $usuario)){
+        	$consulta->bindValue(':localidad', $usuario['localidad'], PDO::PARAM_STR);
+        }
+        if(array_key_exists('direccion', $usuario)){
+        	$consulta->bindValue(':direccion', $usuario['direccion'], PDO::PARAM_STR);
+        }
+        if(array_key_exists('numero', $usuario)){
+        	$consulta->bindValue(':numero', $usuario['numero'], PDO::PARAM_STR);
+        }
+        if(array_key_exists('departamento', $usuario)){
+        	$consulta->bindValue(':departamento', $usuario['departamento'], PDO::PARAM_STR);
+        }
+        $consulta->bindValue(':foto', $usuario['foto'], PDO::PARAM_STR);
         $consulta->execute();
         return $objetoAccesoDato->RetornarUltimoIdInsertado();
     }

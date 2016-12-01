@@ -21,7 +21,7 @@ app.controller("controlPizzeriaLogin", function($scope){
 	
 });
 
-app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuarioService){
+app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuarioService, $state){
 	$scope.usuario={};
 
 	$scope.uploader = new FileUploader({url: 'ws/PHP/upload.php'});
@@ -62,15 +62,24 @@ app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuario
 	        	console.info(response);
 	        	$scope.usuario.foto = $scope.uploader.queue[0].file.name;
 	        }
+		} else {
+			$scope.usuario.foto = "PorDefecto.jpg";
 		}
 		console.log($scope.usuario);
 		usuarioService.crear($scope.usuario).then(function(respuesta){
 			console.log(respuesta);
+			Materialize.toast('Usuario registrado correctamente!', 5000);
+			$state.go("pizzeria.inicio");
 		}, function(error){
 			console.error(error);
 		});
 		//usuarioService.traerPorId(1); 	
 	};
+
+	$scope.probar = function(){
+		Materialize.toast('Usuario registrado correctamente!', 5000);
+		$state.go("pizzeria.inicio");
+	}
 
 	$(document).ready(function() {
     	$('select').material_select();

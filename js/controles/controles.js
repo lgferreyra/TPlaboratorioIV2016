@@ -17,8 +17,21 @@ app.controller("controlPizzeriaInicio", function($scope){
 	
 });
 
-app.controller("controlPizzeriaLogin", function($scope){
-	
+app.controller("controlPizzeriaLogin", function($scope, $auth){
+	$scope.login = function(username, password){
+		var user = {username: username, password: password};
+		$auth.login(user).then(function(response) {
+		    	// Redirect user here after a successful log in.
+		    	console.info(response);
+		    	if($auth.isAuthenticated()){
+		    		console.log("logued");
+		    	} else {
+		    		console.error("error");
+		    	}
+		  	}, function(error) {
+		  		console.info(error);
+		});
+	}
 });
 
 app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuarioService, $state){

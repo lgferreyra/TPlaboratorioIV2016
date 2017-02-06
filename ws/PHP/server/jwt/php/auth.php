@@ -25,7 +25,7 @@ if ($result != null) {
     $myArray["myToken"] = $jwt;
     echo json_encode($myArray);    
 } else {
-    $myArray["myToken"] = false;
+    $myArray["myToken"] = null;
     echo json_encode($myArray);
 }
 

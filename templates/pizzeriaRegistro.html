@@ -67,13 +67,13 @@
 					    </ul>						
 					</div>
 		  		</div>
-			  	<div class="row" ng-if="true">
+			  	<div class="row" ng-if="isEmpleado() || isEncargado() || isAdmin()">
 			  		<div class="input-field col s12 m6">
     					<select ng-model="usuario.perfil" class="validate" required>
       						<option value="" disabled selected>Selecione una opción</option>
       						<option value="cliente">Cliente</option>
-      						<option value="empleado" ng-if="true">Empleado</option>
-      						<option value="encargado" ng-if="true">Encargado</option>
+      						<option value="empleado" ng-if="isEncargado() || isAdmin()">Empleado</option>
+      						<option value="encargado" ng-if="isAdmin()">Encargado</option>
     					</select>
     					<label>Perfil</label>
   					</div>
@@ -101,7 +101,7 @@
 				      	<label for="email">Correo electrónico</label>
 				    </div>
 			  	</div>
-			  	<div class="section" ng-if="usuario.perfil == 'cliente'">
+			  	<div class="section" ng-if="(usuario.perfil!=null && usuario.perfil == 'cliente')">
 			  		<div class="row">
 			  			<div class="input-field col s12 m6">
 					      	<input id="partido" ng-model="usuario.partido" type="text" class="validate" required/>

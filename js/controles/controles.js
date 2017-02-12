@@ -1,5 +1,5 @@
 //PIZZERIA
-app.controller("controlPizzeria", function($scope, $state){
+app.controller("controlPizzeria", function($scope, $state, $auth){
 	$scope.Registro=function(){
 		$state.go('pizzeria.registro');
 		$('.button-collapse').sideNav('hide');
@@ -11,30 +11,56 @@ app.controller("controlPizzeria", function($scope, $state){
 	}
 
 	$(".button-collapse").sideNav();
+
+	$scope.isAdmin = function() {
+	  	return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "administrador");
+	};
+
+	$scope.isEncagado = function() {
+		return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "encargado");
+	}
+
+	$scope.isEmpleado = function() {
+		return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "empleado");
+	}
+
+	$scope.isCliente = function() {
+		return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "cliente");
+	}
+
+	$scope.isAuthenticated = function() {
+	  	return $auth.isAuthenticated();
+	};
+
+	$scope.logout = function() {
+		$auth.logout();
+		$state.go("pizzeria.inicio");
+	}
 });
 
-app.controller("controlPizzeriaInicio", function($scope){
-	
+app.controller("controlPizzeriaInicio", function($scope, $stateParams){
+	if($stateParams.usuarioNombre!=null) {
+		Materialize.toast("Bienvenido " + $stateParams.usuarioNombre, 4000, 'rounded');
+	}
 });
 
-app.controller("controlPizzeriaLogin", function($scope, $auth){
+app.controller("controlPizzeriaLogin", function($scope, $auth, $state){
 	$scope.login = function(username, password){
 		var user = {username: username, password: password};
 		$auth.login(user).then(function(response) {
 		    	// Redirect user here after a successful log in.
 		    	console.info(response);
-		    	if($auth.isAuthenticated()){
-		    		console.log("logued");
-		    	} else {
-		    		console.error("error");
-		    	}
+		    	$state.go("pizzeria.inicio", {usuarioNombre: $auth.getPayload().data.usuarioName});
 		  	}, function(error) {
 		  		console.info(error);
+		  		Materialize.toast("Error: Verifique sus datos", 3000, 'rounded');
+		  		$scope.usuario.username="";
+		  		$scope.usuario.password="";
 		});
 	}
 });
 
-app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuarioService, $state){
+app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuarioService, $state, $auth){
 	$scope.usuario={};
 
 	$scope.uploader = new FileUploader({url: 'ws/PHP/upload.php'});
@@ -49,7 +75,25 @@ app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuario
 	      }
 	});
 
-	
+	$scope.isAdmin = function() {
+	  	return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "administrador");
+	};
+
+	$scope.isEncagado = function() {
+		return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "encargado");
+	}
+
+	$scope.isEmpleado = function() {
+		return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "empleado");
+	}
+
+	$scope.isCliente = function() {
+		return ($auth.isAuthenticated() && $auth.getPayload().data.perfil == "cliente");
+	}
+
+	$scope.isAuthenticated = function() {
+	  	return $auth.isAuthenticated();
+	};
 
 	$scope.quitar = function(){
 		$scope.uploader.clearQueue();
@@ -74,20 +118,32 @@ app.controller("controlPizzeriaRegistro", function($scope, FileUploader, usuario
 	        $scope.uploader.onSuccessItem = function(item, response, status, headers) {
 	        	console.info(response);
 	        	$scope.usuario.foto = $scope.uploader.queue[0].file.name;
+
+	        	crearUsuario();
+
 	        }
 		} else {
 			$scope.usuario.foto = "PorDefecto.jpg";
+
+			crearUsuario();
 		}
+	};
+
+	function crearUsuario() {
 		console.log($scope.usuario);
+
+		if($scope.usuario.perfil==null){
+			$scope.usuario.perfil="cliente";
+		}
+
 		usuarioService.crear($scope.usuario).then(function(respuesta){
 			console.log(respuesta);
 			Materialize.toast('Usuario registrado correctamente!', 5000);
-			$state.go("pizzeria.inicio");
+			//$state.go("pizzeria.inicio");
 		}, function(error){
 			console.error(error);
 		});
-		//usuarioService.traerPorId(1); 	
-	};
+	}
 
 	$scope.probar = function(){
 		Materialize.toast('Usuario registrado correctamente!', 5000);

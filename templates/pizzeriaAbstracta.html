@@ -1,15 +1,17 @@
 <nav class="light-blue lighten-1" role="navigation">
   <div class="nav-wrapper container"><a id="logo-container" ui-sref="pizzeria.inicio" class="brand-logo">Pizzeria Argenta SRL</a>
     <ul class="right hide-on-med-and-down">
-      <li><a ng-click="Ingresar()"><i class="material-icons left">input</i>Ingresar</a></li>
-      <li><a ng-click="Registro()"><i class="material-icons left">person_pin</i>Registro</a></li>
-      <li ng-if="true"><a ui-sref="pizzeria.usuario()"><i class="material-icons left">recent_actors</i>Usuarios</a></li>
+      <li ng-if="!isAuthenticated()"><a ng-click="Ingresar()"><i class="material-icons left">input</i>Ingresar</a></li>
+      <li ng-if="!isCliente() || !isAuthenticated()"><a ng-click="Registro()"><i class="material-icons left">person_pin</i>Registro</a></li>
+      <li ng-if="isAdmin() || isEncagado() || isEmpleado()"><a ng-click="Usuarios()"><i class="material-icons left">recent_actors</i>Usuarios</a></li>
+      <li ng-if="isAuthenticated()"><a ng-click="logout()"><i class="material-icons left">lock</i>Salir</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
-      <li><a ng-click="Ingresar()"ui-sref="pizzeria.login()">Ingresar</a></li>
+      <li ng-if="!isAuthenticated()"><a ng-click="Ingresar()"ui-sref="pizzeria.login()">Ingresar</a></li>
       <li><a ng-click="Registro()">Registro</a></li>
-      <li><a ng-if="true">Usuarios</a></li>
+      <li ng-if="isAdmin() || isEncagado() || isEmpleado()"><a ng-click="Usuarios()">Usuarios</a></li>
+      <li ng-if="isAuthenticated()"><a ng-click="logout()">Salir</a></li>
     </ul>
     <a data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>

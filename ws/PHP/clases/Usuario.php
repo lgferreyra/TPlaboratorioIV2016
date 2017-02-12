@@ -147,8 +147,6 @@ class Usuario {
 		$consulta->bindValue(':username', $username, PDO::PARAM_STR);
 		$consulta->bindValue(':password', $password, PDO::PARAM_STR);
 		$consulta->execute();
-		echo $_SERVER['HTTP_HOST'];
-		echo $_SERVER['REQUEST_URI'];
 		$usuarioBuscado = $consulta->fetchObject('usuario');
 		return $usuarioBuscado;
 	}

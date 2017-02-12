@@ -125,12 +125,19 @@ $app->get('/usuarios[/{perfil}]', function ($request, $response, $args) {
 
 $app->post('/usuario/crear', function ($request, $response, $args) {
     $parsedBody = $request->getParsedBody();
+    var_dump($parsedBody);
+    //var_dump($parsedBody);
     $idInserted = Usuario::InsertarUsuario($parsedBody);
     //ob_start();
-    //var_dump($parsedBody);
     //$result = ob_get_clean();
+    /*if($idInserted===null){
+        header('HTTP/1.0 404 Not Found');
+    } else {
+        $response->write($idInserted);
+        return $response;
+    }*/
+    var_dump($idInserted);
     $response->write($idInserted);
-    return $response;
 });
 
 /*//POST: crear un usuario

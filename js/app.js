@@ -2,11 +2,6 @@ var app = angular.module("myApp",['ui.router', 'angularFileUpload', 'satellizer'
 
 app.config(function($stateProvider, $urlRouterProvider, $authProvider){
 
-	$authProvider.loginUrl=window.location.pathname + "ws/PHP/server/jwt/php/auth.php";
-	$authProvider.tokenName="myToken";
-	$authProvider.tokenPrefix="myApp";
-	$authProvider.authHeader="data";
-
 	$stateProvider
 	.state("pizzeria", {
 		url:"/pizzeria",
@@ -16,6 +11,9 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider){
 	})
 	.state("pizzeria.inicio", {
 		url: "/inicio",
+		params: {
+            usuarioNombre: null
+        },
 		views:{
 			'contenido':{
 				templateUrl:"templates/PizzeriaInicio.html",
@@ -42,4 +40,9 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider){
 		}
 	});
 	$urlRouterProvider.otherwise('/pizzeria/inicio');
+
+	$authProvider.loginUrl="TPlaboratorioIV2016/ws/PHP/server/jwt/php/auth.php";
+	$authProvider.tokenName="myToken";
+	$authProvider.tokenPrefix="myApp";
+	$authProvider.authHeader="data";
 });

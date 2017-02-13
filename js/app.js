@@ -30,12 +30,21 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider){
 			}
 		}
 	})
-	.state("pizzeria.registro", {
-		url: "/registro",
+	.state("pizzeria.cliente", {
+		url: "/cliente",
 		views:{
 			'contenido':{
-				templateUrl:"templates/PizzeriaRegistro.html",
-				controller:"controlPizzeriaRegistro"
+				templateUrl:"templates/pizzeriaCliente.html",
+				controller:"controlPizzeriaCliente"
+			}
+		}
+	})
+	.state("pizzeria.pedir", {
+		url: "/pedir",
+		views:{
+			'contenido':{
+				templateUrl:"templates/pizzeriaPedir.html",
+				controller:"controlPizzeriaPedir"
 			}
 		}
 	});

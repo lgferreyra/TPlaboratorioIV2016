@@ -8,6 +8,7 @@
  */
 //require 'PHP/clases/Personas.php';
 require 'PHP/clases/Usuario.php';
+require 'PHP/clases/Pizza.php';
 require 'vendor/autoload.php';
 
 /**
@@ -163,6 +164,31 @@ $app->delete('/persona/{id}', function ($request, $response, $args) {
     $response->write($respuesta);
     return $response;
 });*/
+
+
+/*PIZZAS*/
+
+$app->get('/pizzas/id[/{id}]', function ($request, $response, $args) {
+    $respuesta = Pizza::TraerPizza($args['id']);
+    $pizzaJson = json_encode($respuesta);
+    $response->write($pizzaJson);
+    return $response;
+});
+
+$app->get('/pizzas', function ($request, $response, $args) {
+    $respuesta = Pizza::TraerTodasLasPizzas();
+    $pizzasJson = json_encode($respuesta);
+    $response->write($pizzasJson);
+    return $response;
+});
+
+$app->post('/pizzas/crear', function ($request, $response, $args) {
+    $parsedBody = $request->getParsedBody();
+    var_dump($parsedBody);
+    $idInserted = Pizza::InsertarPizza($parsedBody);
+    $response->write($idInserted);
+});
+
 
 /**
  * Step 4: Run the Slim application

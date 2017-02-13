@@ -67,9 +67,9 @@
 					    </ul>						
 					</div>
 		  		</div>
-			  	<div class="row" ng-if="isEmpleado() || isEncargado() || isAdmin()">
+			  	<div class="row">
 			  		<div class="input-field col s12 m6">
-    					<select ng-model="usuario.perfil" class="validate" required>
+    					<select ng-model="usuario.perfil" ng-change="change()" class="validate" required>
       						<option value="" disabled selected>Selecione una opción</option>
       						<option value="cliente">Cliente</option>
       						<option value="empleado" ng-if="isEncargado() || isAdmin()">Empleado</option>
@@ -78,12 +78,13 @@
     					<label>Perfil</label>
   					</div>
 			  	</div>
+				  {{usuario.perfil}}
 			  	<div class="row">
 				    <div class="input-field col s12 m6">
 				      	<input id="nrodoc" ng-model="usuario.nrodoc" type="text" class="validate" maxlength="10" required/>
 				      	<label for="nrodoc">Número de documento</label>
 				    </div>
-				    <div class="input-field col s12 m6" ng-if="usuario.perfil == 'empleado' || usuario.perfil == 'encargado'">
+				    <div class="input-field col s12 m6" ng-if="mostrarCUIT">
 				      	<input id="cuil" ng-model="usuario.cuil" type="text" class="validate" maxlength="13" required/>
 				      	<label for="cuil">CUIL</label>
 				    </div>
@@ -101,7 +102,7 @@
 				      	<label for="email">Correo electrónico</label>
 				    </div>
 			  	</div>
-			  	<div class="section" ng-if="(usuario.perfil!=null && usuario.perfil == 'cliente')">
+			  	<div class="section" ng-if="mostrarDomicilio">
 			  		<div class="row">
 			  			<div class="input-field col s12 m6">
 					      	<input id="partido" ng-model="usuario.partido" type="text" class="validate" required/>

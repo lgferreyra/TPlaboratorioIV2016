@@ -21,7 +21,7 @@
             "name": "Launch localhost with sourcemaps",
             "type": "edge",
             "request": "launch",
-            "url": "http://localhost/TPlaboratorioIV2016/index.html",
+            "url": "http://localhost/TPlaboratorioIV2016/",
             "webRoot": "${workspaceRoot}",
             "sourceMaps": true
         },

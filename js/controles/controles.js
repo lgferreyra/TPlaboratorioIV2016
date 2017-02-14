@@ -171,13 +171,23 @@ app.controller("controlPizzeriaCliente", function ($scope, FileUploader, usuario
 	});
 });
 
-app.controller("controlPizzeriaPedir", function ($scope) {
+app.controller("controlPizzeriaPedir", function ($scope, pizzaFactory) {
 	
-	
+	$scope.listaPizzas = {};
+
+	pizzaFactory.traerTodas()
+		.then(function(response){
+			console.log(response);
+			$scope.listaPizzas=response;
+		}, function(error){
+			console.error(error);
+	});
+
 	$('.timepicker').pickatime({
 		default: 'now',
 		twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
 		donetext: 'OK',
+		ampmclickable: false,
 		autoclose: false,
 		vibrate: true // vibrate the device when dragging clock hand
 	});

@@ -2,12 +2,36 @@
     <div class="container">
         <form class="col s12 m6" name="FormPedido" enctype="multipart/form-data" novalidate>
             <div class="title">
-				<h3>Haga su pedido</h3>
-			</div>
+                <h3>Haga su pedido</h3>
+            </div>
             <div class="divider"></div>
             <div class="section">
                 <div class="row">
-                    
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th data-field="nombre">Nombre</th>
+                                <th data-field="descripcion">Descripcion</th>
+                                <th data-field="pchica" colspan="2">Chica</th>
+                                <th data-field="cantChica">Cantidad</th>
+                                <th data-field="pgrande" colspan="2">Grande</th>
+                                <th data-field="cantGrande">Cantidad</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="pizza in listaPizzas">
+                                <td>{{pizza.nombre}}</td>
+                                <td>{{pizza.descripcion}}</td>
+                                <td>${{pizza.pchico}}</td>
+                                <td><a href="#!" class="primary-content"><i class="material-icons">add</i></a><a href="#!" class="primarypry-content"><i class="material-icons">remove</i></a></td>
+                                <td style="text-align: center">5</td>
+                                <td>${{pizza.pgrande}}</td>
+                                <td><a href="#!" class="primary-content"><i class="material-icons">add</i></a><a href="#!" class="primary-content"><i class="material-icons">remove</i></a></td>
+                                <td style="text-align: center">5</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6">

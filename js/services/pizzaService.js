@@ -16,8 +16,7 @@ angular
       return $http.get(traerUrl("pizzas"))
       .then( function (data){
 
-        console.log(data);
-        //return data.data.Paises;
+        return data.data;
 
       },function (error){
         

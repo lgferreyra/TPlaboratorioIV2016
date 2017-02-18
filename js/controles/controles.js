@@ -175,6 +175,8 @@ app.controller("controlPizzeriaPedir", function ($scope, pizzaFactory) {
 	
 	$scope.listaPizzas = {};
 
+	$scope.listaDetalle = [];
+
 	pizzaFactory.traerTodas()
 		.then(function(response){
 			console.log(response);
@@ -191,4 +193,15 @@ app.controller("controlPizzeriaPedir", function ($scope, pizzaFactory) {
 		autoclose: false,
 		vibrate: true // vibrate the device when dragging clock hand
 	});
+
+	$scope.agregarDetalle = function(pizza, cant){
+		var detalle = {
+			nombre:pizza.nombre,
+			descripcion:pizza.descripcion,
+			cantidad:cant,
+			precioUnitario:pizza.pgrande,
+			precio: pizza.pgrande*cant
+		};
+
+	}
 });

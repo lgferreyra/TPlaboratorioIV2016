@@ -1,42 +1,27 @@
-TP LaboratorioIV 2016
-========================================
+# Pizzeria
 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
 
-**Trabajo práctico  de los alumnos de laboratorio IV.**
+## Development server
 
-<h4>Las siguientes empresas nos solicitan la creación de aplicaciones para administrar sus negocios:</h4>
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-  - Pizzerías Argenta SRL
-  - Inmobiliarias El Campito  S.A.
+## Code scaffolding
 
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-<h4>El trabajo práctico deberá contener los siguientes ítem además de los requerimientos funcionales del sistema</h4>
- - ABM.
- - login (JWT).
- - Botones de test ( Administrador, encargado,empleado y cliente).
- - WEbServer(API rest).
- - Geo localización.
- - Generar documentos Excel.
- - Generar Documentos pdf .
- - Generar graficos estadísticos.
- - Responsive / estilos aplicados de forma estética.
- - manejo de imágenes.
- - creación de directivas.
- - servicios y Factory
- - filtros
+## Build
 
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
+## Running unit tests
 
--------------------------------------------------------------------------------------
-<h5>Objetivo:Lograr una aplicacion funcional sin errores.</h5>
--------------------------------------------------------------------------------------
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+## Running end-to-end tests
 
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Further help
 
-
-
-
-
-
-
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
